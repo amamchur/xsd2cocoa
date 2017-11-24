@@ -541,7 +541,7 @@
                     super.writeAttributes(writer)
                     {% /if %}
                     
-                    {% for simpleType in type.simpleTypesInUse %}
+                    {% for simpleType in type.uniqueTemplateTypes %}
                     {{ simpleType.writePrefixCode }}
                     {% /for %}
                     
@@ -562,7 +562,7 @@
                     super.writeElements(writer)
                     {% /if %}
                     
-                    {% for simpleType in type.simpleTypesInUse %}
+                    {% for simpleType in type.uniqueTemplateElementTypes %}
                     {{ simpleType.writePrefixCode }}
                     {% /for %}
                     

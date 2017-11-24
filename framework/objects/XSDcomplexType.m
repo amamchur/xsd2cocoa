@@ -185,10 +185,18 @@
         [uniqueTemplateTypes addObject:type.typeForTemplate];
     }
     
+    [uniqueTemplateTypes addObjectsFromArray:[self uniqueTemplateElementTypes]];
+    
+    return [uniqueTemplateTypes allObjects];
+}
+
+- (NSArray*) uniqueTemplateElementTypes {
+    NSMutableSet* uniqueElementTemplateTypes = [NSMutableSet set];
+    
     for (XSDelement* anElement in [self elements]) {
         id<XSType> aType = anElement.schemaType;
         if([aType isKindOfClass: [XSSimpleType class]]) {
-            [uniqueTemplateTypes addObject:[(id)aType typeForTemplate]];
+            [uniqueElementTemplateTypes addObject:[(id)aType typeForTemplate]];
         }
     }
     
@@ -197,11 +205,11 @@
     if(baseType != nil) {
         id<XSType> t = [self.schema typeForName: baseType];
         if(t != nil && [t isKindOfClass:[XSSimpleType class]]) {
-            [uniqueTemplateTypes addObject:[(id)t typeForTemplate]];
+            [uniqueElementTemplateTypes addObject:[(id)t typeForTemplate]];
         }
     }
     
-    return [uniqueTemplateTypes allObjects];
+    return [uniqueElementTemplateTypes allObjects];
 }
 
 - (NSArray*) complexTypesInUse {

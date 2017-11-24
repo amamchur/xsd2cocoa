@@ -400,7 +400,7 @@
         {% if element.hasEnumeration %}
         @property (nonatomic, assign) {{ element.schemaType.enumerationName }} {{ element.variableName }};
         {% else %}
-        @property (nonatomic, {% if element.isSingleValue %}strong{% else %}copy{% /if %}) {{ element.codeType }}* {{ element.variableName }};{% /if %}{% /for %}
+        @property (nonatomic, {% if element.isSingleValue %}strong{% else %}copy{% /if %}) {{ element.codeType }}{% if element.isSingleValue == false %} <{{ element.schemaType.targetClassName }} *>{% /if %}* {{ element.variableName }};{% /if %}{% /for %}
 
         {% if type.hasSimpleBaseClass %}/**
         the type's underlying value
@@ -543,7 +543,7 @@
                         if(contentValue) {
                             {{ type.readSimpleContent }}
                         }
-                    } else {% /if %} {
+                    } else {% /if %}{
                         NSLog(@"%s: Ignoring unexpected: %@", __PRETTY_FUNCTION__, _currentElementName);
                         break;
                     }
@@ -624,7 +624,7 @@
         [super writeElements: writer];
         {% /if %}
         
-        {% for simpleType in type.uniqueTemplateTypes %}
+        {% for simpleType in type.uniqueTemplateElementTypes %}
         {{ simpleType.writePrefixCode }}
         {% /for %}
         

@@ -23,6 +23,7 @@
 - (NSArray*) elements;
 - (NSArray*) simpleTypesInUse;
 - (NSArray*) uniqueTemplateTypes;
+- (NSArray*) uniqueTemplateElementTypes;
 - (NSArray*) complexTypesInUse;
 - (NSArray*) enumTypesInUse;
 - (NSString*) readSimpleContent;
